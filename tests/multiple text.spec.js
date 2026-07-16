@@ -1,6 +1,6 @@
 import {test,expect} from "@playwright/test"
 
-test.skip("multiple test",async({page})=>{
+test("multiple test",async({page})=>{
 await page.goto("https://testautomationpractice.blogspot.com/",{waitUntil:'load'})
 await page.locator("//table[@name='BookTable']").first().waitFor()
 let alldata=await page.locator("//table[@name='BookTable']").allTextContents()
@@ -34,7 +34,7 @@ for(let l of dropdowndata)
 await console.log(`last line executed`)
 })
 
-test.skip("new ip address- framework",async({page})=>{
+test("new ip address- framework",async({page})=>{
 
 await page.goto("https://practicetestautomation.com/",{waituntil:'load'})
 
