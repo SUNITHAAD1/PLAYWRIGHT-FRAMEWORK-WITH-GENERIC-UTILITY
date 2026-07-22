@@ -1,12 +1,12 @@
 import {test} from "@playwright/test"
 import exceljs from "exceljs"
 import data from "../TEST DATA/home.json"
-import { HomeFile } from "../POMPAGES/HomeFile.spec";
+import { HomeFile } from "../POMPAGES/HomeFile";
 import { XLUtility } from "../UTILITIES/XLUtility";
 import RandomNumberUtility from "../UTILITIES/RandomNumber_Utility"
 import playwright_Utility from "../UTILITIES/Playwright_Utility"
 
-test("scripttt --> 1",async({page})=>{
+test("scripttt --> 1 @Smoke",async({page})=>{
 await page.goto(process.env.MAIN_URL,{waitUntil:'domcontentloaded'})
 let depname=data.dname
 let depemail=data.email

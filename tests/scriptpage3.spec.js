@@ -1,10 +1,8 @@
 import {test} from "@playwright/test"
 import dotenv from "dotenv"
-
 dotenv.config({path:".env"})
+import { Downloadpage } from "../POMPAGES/DownloadFile"
 
-
-import { Downloadpage } from "../POMPAGES/DownloadFile.spec"
 test("script 3 @Smoke",async({browser})=>{
     let context=await browser.newContext()
     let page=await context.newPage()
