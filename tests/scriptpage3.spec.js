@@ -5,7 +5,7 @@ dotenv.config({path:".env"})
 
 
 import { Downloadpage } from "../POMPAGES/DownloadFile.spec"
-test("script 3 @smoke",async({browser})=>{
+test("script 3 @Smoke",async({browser})=>{
     let context=await browser.newContext()
     let page=await context.newPage()
     await page.goto(process.env.BASE_URL)
