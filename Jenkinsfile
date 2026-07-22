@@ -1,12 +1,13 @@
 
 pipeline {
     agent any
-
+            parameters {
             choice(
             name: 'SUITE',
             choices: ['Smoke', 'Sanity', 'Regression'],
             description: 'Select Test Suite'
         )
+            }
     stages {
 
         stage('Checkout') {
