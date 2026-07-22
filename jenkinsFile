@@ -2,52 +2,10 @@ pipeline {
 
     agent any
 
-    tools {
-        nodejs "NodeJS"
-    }
-
-    parameters {
-
-        choice(
-            name: 'ENV',
-            choices: ['QA', 'UAT', 'STAGING'],
-            description: 'Select Environment'
-        )
-
-        choice(
-            name: 'BROWSER',
-            choices: ['chromium', 'firefox', 'webkit'],
-            description: 'Browser'
-        )
-
         choice(
             name: 'SUITE',
             choices: ['Smoke', 'Sanity', 'Regression'],
             description: 'Test Suite'
-        )
-
-        string(
-            name: 'TAG',
-            defaultValue: '@smoke',
-            description: 'Playwright Tag'
-        )
-
-        booleanParam(
-            name: 'HEADLESS',
-            defaultValue: true,
-            description: 'Run Headless'
-        )
-
-        choice(
-            name: 'WORKERS',
-            choices: ['1','2','4'],
-            description: 'Parallel Workers'
-        )
-
-        choice(
-            name: 'RETRY',
-            choices: ['0','1','2'],
-            description: 'Retries'
         )
 
         booleanParam(
@@ -56,14 +14,6 @@ pipeline {
             description: 'Generate Allure Report'
         )
     }
-
-    environment {
-
-        QA_URL       = "https://qa.company.com"
-        UAT_URL      = "https://uat.company.com"
-        STAGING_URL  = "https://staging.company.com"
-    }
-
     stages {
 
         stage('Checkout') {
