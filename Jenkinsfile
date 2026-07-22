@@ -10,13 +10,6 @@ pipeline {
             }
     stages {
 
-        stage('Checkout') {
-            steps {
-                git branch: 'main',
-                    url: 'https://github.com/SUNITHAAD1/PLAYWRIGHT-FRAMEWORK-WITH-GENERIC-UTILITY.git'
-            }
-        }
-
         stage('Install Node Modules') {
             steps {
                 bat 'npm install'
