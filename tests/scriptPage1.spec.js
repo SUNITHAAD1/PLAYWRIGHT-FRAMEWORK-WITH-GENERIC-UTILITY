@@ -1,5 +1,5 @@
 import {test} from "@playwright/test"
-import data from "../home.json"
+import data from "../TEST DATA/home.json"
 import dotenv from "dotenv"
 import { HomeFile } from "../POMPAGES/HomeFile.spec"
 dotenv.config({path:'.env'})
