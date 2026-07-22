@@ -1,3 +1,8 @@
+require ('dotenv').config()
+module.exports=defineConfig({
+  use:{}
+})
+
 // @ts-check
 import { defineConfig, devices } from '@playwright/test';
 
@@ -28,7 +33,7 @@ export default defineConfig({
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
     // baseURL: 'http://localhost:3000',
-
+    baseurl:process.env.BASE_URL,
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
   },

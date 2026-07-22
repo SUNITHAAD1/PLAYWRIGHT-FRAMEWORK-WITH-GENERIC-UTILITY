@@ -8,13 +8,13 @@ export class XLUtility
     }
     async readdatafromXL(sheet,row,col)
     {
-    let book=await new exceljs.workBook()
-    await book.xlsx.readFile(this.path)
+    let book=new exceljs.workBook()
+    book.xlsx.readFile(this.path)
     let sh=await book.getWorkSheet(sheet1)
 
         for(let i=1;i<sh.actualRowCount;i++)
             {
-            let data=await sh.getRow(row).getCell(col).toString()
+            let data= sh.getRow(row).getCell(col).toString()
             return data
             }
 
@@ -22,14 +22,14 @@ export class XLUtility
 
     async writedataIntoXL(sheet,row,col,value)
     {
-    let book=await new exceljs.workBook()
-    await book.xlsx.readFile(this.path)
-    let sh=await book.getWorkSheet(sheet1)
+    let book=new exceljs.workBook()
+    book.xlsx.readFile(this.path)
+    let sh=book.getWorkSheet(sheet1)
 
         for(let i=1;i<sh.actualRowCount;i++)
             {
-            let data=await sh.getRow(row).getCell(col).toString()
-            await book.xlsx.writeFile(this.path)
+            let data=sh.getRow(row).getCell(col).toString()
+            book.xlsx.writeFile(this.path)
         }
         
     }

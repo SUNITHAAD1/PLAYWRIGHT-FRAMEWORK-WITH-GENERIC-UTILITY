@@ -75,5 +75,34 @@ export class HomeFile
 
     }
 
+    async alldataMethod()
+    {
+        /*
+                this.dname=page.locator("//input[@id='name']")
+        this.email=page.locator("//input[@id='email']")
+        this.phone=page.locator("//input[@id='phone']")
+        this.address=page.locator("//textarea[@id='textarea']")
+        this.male_radio_button=page.locator("//input[@id='male']")
+        this.female_radio_button=page.locator("//input[@id='female']")
+
+        //this.sunday_checkbox=page.getByRole("checkbox",{name:'sunday'})
+        // this.monday_checkbox=page.getByRole("checkbox",{name:'sunday'})
+        // this.tuesday_checkbox=page.getByRole("checkbox",{name:'sunday'})
+            this.wednesday_checkbox=page.locator("//input[@id='wednesday']")
+        this.country=page.locator("//select[@id='country']")
+        this.colors=page.locator("//select[@id='colors']")
+        this.sorted_list=page.locator("//select[@id='animals']")
+        this.monthformat=page.locator("//input[@id='datepicker']")
+        this.dateformat=page.locator("//input[@id='txtDate']")
+        this.fromdate=page.locator("//input[@id='start-date']")
+        this.todate=page.locator("//input[@id='end-date']")
+        this.submit=page.locator("//button[@class='submit-btn']")
+
+        */
+
+
+
+
+    }
 
 }

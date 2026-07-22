@@ -16,36 +16,28 @@ export class Downloadpage
         this.uploadmultiplefilebutton=page.getByRole("button",{name:'Upload Multiple Files'})
         this.multipleFileStatus=page.locator("//p[@id='multipleFilesStatus']")
         
-        this.static_webtable=page.locator("//div[@id='HTML1']")
-        this.dynamic_webtable=page.locator("//div[@id='HTML12']/child::div[@class='widget-content']")
-        this.pagination_webtable=page.locator("//div[@id='HTML8']/child::div[@class='widget-content']")
-        
-
+        this.static_webtable=page.locator("//div[@class='widget-content']/descendant::table[@name='BookTable']")
+        this.dynamic_webtable=page.locator("//div[@id='HTML12']/descendant::div[@class='widget-content']")
+        this.pagination_webtable=page.locator("//div[@class='table-container']")
+        //below all are working
+        //this.static_webtable=page.locator("//div[@id='HTML1']")
+        //this.dynamic_webtable=page.locator("//div[@id='HTML12']/child::div[@class='widget-content']")
+        //this.pagination_webtable=page.locator("//div[@id='HTML8']/child::div[@class='widget-content']")
     }
     
-    async downloadmethod(sta_table,dyn_table,pag_table)
+    async downloadmethod()
     {
         await this.download_with_text.fill('I am downloading file')
         await this.pdffile.click()
     
-        // await this.static_webtable.first().waitFor()
-        // let sta_table=await this.static_webtable.first().allTextContents()
-  
-        // await this.dynamic_webtable.first().waitFor()
-        // let dyn_table=await this.dynamic_webtable.first().allTextContents()
-  
-        // await this.pagination_webtable.last().waitFor()
-        // let pag_table=await this.pagination_webtable.last().allTextContents()
-
-
-        // return {    
-        //     sta_table,
-        //     dyn_table,
-        //     pag_table
-        // };
+        await this.static_webtable.first().waitFor()
+        let sta_table=await this.static_webtable.first().allTextContents()
         
+        await this.pagination_webtable.last().waitFor()
+        let pag_table=await this.pagination_webtable.last().allTextContents()        
+        
+        await this.dynamic_webtable.first().waitFor()
+        let dyn_table=await this.dynamic_webtable.first().allTextContents()
+    return {sta_table,pag_table,dyn_table}    
     }
-
-
-
 }
