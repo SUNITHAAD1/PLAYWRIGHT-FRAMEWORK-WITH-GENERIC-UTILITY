@@ -1,90 +1,49 @@
-pipeline {
 
+pipeline {
     agent any
 
-        choice(
+            choice(
             name: 'SUITE',
             choices: ['Smoke', 'Sanity', 'Regression'],
-            description: 'Test Suite'
+            description: 'Select Test Suite'
         )
-
-        booleanParam(
-            name: 'ALLURE_REPORT',
-            defaultValue: true,
-            description: 'Generate Allure Report'
-        )
-    }
     stages {
 
         stage('Checkout') {
             steps {
                 git branch: 'main',
-                    url: 'https://github.com/company/playwright-framework.git'
+                    url: 'https://github.com/SUNITHAAD1/PLAYWRIGHT-FRAMEWORK-WITH-GENERIC-UTILITY.git'
             }
         }
 
-        stage('Install Dependencies') {
+        stage('Install Node Modules') {
             steps {
-                sh 'npm ci'
-                sh 'npx playwright install'
+                bat 'npm install'
             }
         }
 
-        stage('Execute Tests') {
-
+        stage('Install Playwright Browsers') {
             steps {
-
-                withCredentials([
-                    usernamePassword(
-                        credentialsId: 'qa-login',
-                        usernameVariable: 'APP_USERNAME',
-                        passwordVariable: 'APP_PASSWORD'
-                    ),
-                    string(
-                        credentialsId: 'api-token',
-                        variable: 'API_TOKEN'
-                    )
-                ]) {
-
-                    script {
-
-                        def baseUrl = ""
-
-                        if(params.ENV == "QA"){
-                            baseUrl = env.QA_URL
-                        }
-                        else if(params.ENV == "UAT"){
-                            baseUrl = env.UAT_URL
-                        }
-                        else{
-                            baseUrl = env.STAGING_URL
-                        }
-
-                        sh """
-                        export BASE_URL=${baseUrl}
-                        export USERNAME=${APP_USERNAME}
-                        export PASSWORD=${APP_PASSWORD}
-                        export API_TOKEN=${API_TOKEN}
-                        export HEADLESS=${params.HEADLESS}
-
-                        npx playwright test \
-                        --project=${params.BROWSER} \
-                        --grep=${params.TAG} \
-                        --workers=${params.WORKERS}
-                        """
-                    }
-                }
+                bat 'npx playwright install'
             }
         }
 
-        stage('Generate Allure Report') {
-
-            when {
-                expression { params.ALLURE_REPORT }
-            }
-
+        stage('Run Playwright Tests') {
             steps {
-                sh 'allure generate allure-results --clean -o allure-report'
+                bat 'npx playwright test'
+            }
+        }
+
+        stage('Publish HTML Report') {
+            steps {
+                publishHTML(target: [
+                    reportDir: 'playwright-report',
+                    reportFiles: 'index.html',
+                    reportName: 'Playwright HTML Report',
+                    keepAll: true,
+                    alwaysLinkToLastBuild: true,
+                    allowMissing: false
+                ])
             }
         }
     }
@@ -92,22 +51,15 @@ pipeline {
     post {
 
         always {
-
-            archiveArtifacts artifacts: 'playwright-report/**'
-
-            archiveArtifacts artifacts: 'allure-report/**'
-
-            junit 'test-results/*.xml'
-
-            cleanWs()
+            archiveArtifacts artifacts: 'playwright-report/**', allowEmptyArchive: true
         }
 
         success {
-            echo "Execution Completed Successfully"
+            echo 'Playwright tests executed successfully.'
         }
 
         failure {
-            echo "Execution Failed"
+            echo 'Playwright test execution failed.'
         }
     }
 }
